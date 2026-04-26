@@ -14,7 +14,7 @@ class Dictionary:
         index = self._get_index(key)
         for pair in self.slots[index]:
             if pair[0] == key:
-                pair[1] = value
+                pair[2] = value
                 return
         self.slots[index].append([key, hash(key), value])
         self.length += 1
