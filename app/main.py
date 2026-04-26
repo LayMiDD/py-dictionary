@@ -16,14 +16,14 @@ class Dictionary:
             if pair[0] == key:
                 pair[1] = value
                 return
-        self.slots[index].append([key, value, hash(key)])
+        self.slots[index].append([key, hash(key), value])
         self.length += 1
 
     def __getitem__(self, key: Any) -> Any:
         index = self._get_index(key)
         for pair in self.slots[index]:
             if pair[0] == key:
-                return pair[1]
+                return pair[2]
         raise KeyError(f"Key '{key}' not found in dictionary.")
 
     def __len__(self) -> int:
