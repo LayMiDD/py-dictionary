@@ -1,12 +1,15 @@
+from typing import Any
+
+
 class Dictionary:
-    def __init__(self, size: int = 8):
+    def __init__(self, size: int = 8) -> None:
         self.size = size
-        self.slots = [[] for _ in range(self.size)]
-    
-    def _get_index(self, key):
+        self.slots: list[list[list[Any]]] = [[] for _ in range(self.size)]
+
+    def _get_index(self, key: Any) -> int:
         return abs(hash(key)) % self.size
-    
-    def __setitem__(self, key, value):
+
+    def __setitem__(self, key: Any, value: Any) -> None:
         index = self._get_index(key)
         for pair in self.slots[index]:
             if pair[0] == key:
@@ -14,14 +17,12 @@ class Dictionary:
                 return
         self.slots[index].append([key, value])
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         index = self._get_index(key)
         for pair in self.slots[index]:
             if pair[0] == key:
                 return pair[1]
         raise KeyError
-    
-    def __len__(self):
+
+    def __len__(self) -> int:
         return sum(len(slot) for slot in self.slots)
-    
-    
